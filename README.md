@@ -1,26 +1,36 @@
-# 💰 Sistema Minha Carteira - Mackenzie
+# MinhaCarteira 💰
 
-Repositório acadêmico desenvolvido para a disciplina de **Programação de Sistemas II** do curso de Tecnologia em Análise e Desenvolvimento de Sistemas da **Universidade Presbiteriana Mackenzie**.
-
-> **⚠️ Status do Projeto: Em Andamento / Desenvolvimento Contínuo**
-> Este projeto está em construção e continuará sendo atualizado progressivamente no decorrer do semestre com as próximas etapas da atividade prática.
+Sistema de gestão financeira pessoal desenvolvido em **Java** com arquitetura baseada no padrão **DAO (Data Access Object)**, utilizando **JDBC** e persistência de dados com **SQLite**.
 
 ---
 
-## 🚀 Sobre o Projeto
-O **Minha Carteira** é um sistema de gestão financeira pessoal desenvolvido em Java que simula o controle de receitas e despesas. O objetivo da aplicação é aplicar na prática os pilares da Orientação a Objetos (POO), tratamento robusto de erros, manipulação de arquivos e persistência de dados.
+## 🚀 Tecnologias Utilizadas
 
-## 🛠️ Tecnologias e Conceitos Aplicados (Até o momento)
-* **Linguagem:** Java
-* **Programação Orientada a Objetos (POO):** Classes abstratas, herança, polimorfismo e interfaces.
-* **Tratamento de Exceções:** Criação de exceções customizadas (*checked exceptions* com `ValorInvalidoException`) e blocos `try-catch`.
-* **Persistência de Dados & I/O:** Serialização de objetos (`Serializable`) salvos em arquivo binário (`transacoes.bin`) e exportação de relatórios em formato CSV (`extrato.csv`).
-
-## 📚 Etapas Desenvolvidas
-* **Aula 1:** Modelagem da estrutura base (Classe abstrata `Transacao`, interface `Tributavel`, classes concretas `Receita` e `Despesa` e polimorfismo na classe `Sistema`).
-* **Aula 2:** Implementação de validações de negócio e da exceção personalizada `ValorInvalidoException`.
-* **Aula 3:** Implementação da serialização e do gerenciamento de arquivos (`GerenciadorArquivos`) para persistência de dados e geração de extratos.
-* **Próximas Aulas:** *Em breve novas funcionalidades.*
+* **Java 17+**
+* **SQLite** (Base de dados local)
+* **SQLite JDBC Driver** (`org.xerial:sqlite-jdbc`)
+* **SLF4J Simple** (Gestão de logs)
+* **Maven** (Gestão de dependências)
 
 ---
-Desenvolvido por **Vinicius Oliveira** 
+
+## 📂 Estrutura do Projeto
+
+O projeto está organizado em pacotes dentro de `src/main/java/br/com/minhacarteira`:
+
+* **`ConexaoFactory.java`**: Fábrica responsável por estabelecer a conexão com a base de dados SQLite (`carteira.db`).
+* **`TransacaoDAO`**: Classe responsável pelas operações de persistência (Criação da tabela, Inserção e Listagem de transações).
+* **`Transacao`** (e subclasses **`Receita`** / **`Despesa`**): Classes de modelo que representam as movimentações financeiras.
+* **`Sistema`**: Classe principal (`main`) para execução dos testes e demonstração do funcionamento do sistema.
+
+---
+
+## ⚙️ Como Executar o Projeto
+
+1. Certifica-te de que tens o **Java JDK** e o **Maven** instalados no teu computador.
+2. Clona ou abre este projeto no teu ambiente de desenvolvimento (por exemplo, **IntelliJ IDEA**).
+3. Aguarda o Maven carregar as dependências automaticamente através do ficheiro `pom.xml`.
+4. Abre a classe **`Sistema.java`**.
+5. Clica no botão de execução (**Run 'Sistema.main()'**) para iniciar a aplicação.
+
+Ao executar, o sistema criará automaticamente o ficheiro de base de dados local (`carteira.db`), efetuará a inserção de registos de exemplo e exibirá a listagem completa na consola.

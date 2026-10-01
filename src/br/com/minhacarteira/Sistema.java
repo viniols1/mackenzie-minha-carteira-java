@@ -3,30 +3,23 @@ package br.com.minhacarteira;
 import java.util.List;
 
 public class Sistema {
-    public static void main(String[] args) {
-        List<Transacao> transacoes = GerenciadorArquivos.carregarDados();
-        System.out.println("Total de transações carregadas: " + transacoes.size());
+    public static void main(String[] args) throws ValorInvalidoException {
+        TransacaoDAO dao = new TransacaoDAO();
 
-        try {
-            transacoes.add(new Despesa("Internet", 100.00, "20/08/2026"));
-            System.out.println("Nova transação adicionada com sucesso!");
-        } catch (ValorInvalidoException e) {
-            System.out.println("Erro ao adicionar transação: " + e.getMessage());
-        }
+        dao.criarTabela();
 
-        GerenciadorArquivos.salvarDados(transacoes);
+        Receita receitaExemplo = new Receita("Salario", 5000.0, "01/10/2026");
+        Despesa despesaExemplo = new Despesa("Aluguel", 1500.0, "05/10/2026");
 
-        GerenciadorArquivos.gerarExtrato(transacoes);
-        System.out.println("Extrato gerado com sucesso em 'extrato.csv'.");
+        dao.salvar(receitaExemplo);
+        dao.salvar(despesaExemplo);
 
-        System.out.println("\n--- Relatório Atualizado de Transações ---");
+        List<Transacao> transacoes = dao.listar();
+
+        System.out.println("=== LISTA DE TRANSAÇÕES DO BANCO DE DADOS ===");
         for (Transacao t : transacoes) {
             t.exibirDetalhes();
-            if (t instanceof Tributavel) {
-                double imposto = ((Tributavel) t).calcularImposto();
-                System.out.println("   -> Imposto referente a esta transação: R$ " + imposto);
-            }
-            System.out.println();
+            System.out.println("-------------------");
         }
     }
 }
